@@ -1,4 +1,4 @@
-"use client";
+//"use client";
 
 import { DocumentData } from "firebase/firestore";
 import { motion } from "framer-motion";
