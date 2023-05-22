@@ -7,17 +7,17 @@ type Props = {};
 
 function Login({}: Props) {
   return (
-    <div className="bg-[#11A37F] h-screen flex flex-col items-center justify-center text-center">
+    <div className="bg-[#000000] h-screen flex flex-col items-center justify-center text-center">
       <img
-        src="https://drive.google.com/uc?export=download&id=1mxgawX_xUIKrIgiOpOb1MTwt8l2fXTaL"
+        src="https://drive.google.com/uc?export=download&id=1lZj_K4hnTlQPD_rqq7OCyk29wraHlCx-"
         alt="logo"
         className="w-96"
       />
       <button
         onClick={() => signIn("google")}
-        className="text-white font-bold text-3xl animate-pulse"
+        className="text-white font-bold text-2xl animate-pulse"
       >
-        Sign In to use ChatGpt
+        Sign in with your school Google account
       </button>
     </div>
   );

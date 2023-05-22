@@ -7,7 +7,7 @@ import React, { useState } from "react";
 import { toast } from "react-hot-toast";
 import useSWR from "swr";
 
-import ModelSelection from "./ModelSelection";
+// import ModelSelection from "./ModelSelection";
 
 type Props = {
   chatId: string;
@@ -55,7 +55,7 @@ function ChatInput({ chatId }: Props) {
       );
 
       // loading
-      const notification = toast.loading("ChatGPT is thinking...");
+      const notification = toast.loading("if/else is thinking...");
 
       await fetch("/api/askQuestion", {
         method: "POST",
@@ -139,9 +139,6 @@ function ChatInput({ chatId }: Props) {
           </button>
         )}
       </form>
-      <div className="md:hidden">
-        <ModelSelection />
-      </div>
     </div>
   );
 }
