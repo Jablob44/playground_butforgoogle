@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { getToken } from 'next-auth/jwt';
 // import { useSession } from 'next-auth/react';
 // const session = useSession();
 // GoogleProvider({
@@ -8,21 +9,70 @@ import axios from 'axios';
 //     scope: 'https://www.googleapis.com/auth/classroom.courses https://www.googleapis.com/auth/classroom.coursework.students',
 // }),
 
-export default async function listAssignments(courseId: string, accessToken: string) {
-    console.log("access token:", accessToken);
+export default async (req: any, res: any) => {
+    // const test = String(accessToken)
+    const secret = process.env.NEXT_PUBLIC_SECRET;
+    console.log("access token test:", getToken({req, secret}));
     try {
-        const response = await axios.get(`https://classroom.googleapis.com/v1/courses/${courseId}/courseWork`, {
+        const response = await axios.get(`https://classroom.googleapis.com/v1/courses/${req.courseID}/courseWork`, {
             headers: {
-                'Authorization': `Bearer ${accessToken}`
+                'Authorization': `Bearer ${getToken({req, secret})}`
             },
         });
 
         const assignments = response.data.courseWork;
         console.log(assignments);
+        res.status(200).json(assignments)
     } catch (error) {
-        console.log(error);
+        if (axios.isAxiosError(error) && error.response) {
+            console.error(error.response.data);
+        } else {
+            console.error(error);
+        }
     }
 }
+
+
+
+
+
+
+
+
+
+// export default async function listAssignments(req: any, accessToken: string) {
+//     // const test = String(accessToken)
+//     console.log("access token test:", getToken({req,}));
+//     try {
+//         const response = await axios.get(`https://classroom.googleapis.com/v1/courses/${courseId}/courseWork`, {
+//             headers: {
+//                 'Authorization': `Bearer ${accessToken}`
+//             },
+//         });
+
+//         const assignments = response.data.courseWork;
+//         console.log(assignments);
+//     } catch (error) {
+//         if (axios.isAxiosError(error) && error.response) {
+//             console.error(error.response.data);
+//         } else {
+//             console.error(error);
+//         }
+//     }
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+
 // listAssignments("2hs45ud", session.accessToken);
 // import { google } from 'googleapis';
 

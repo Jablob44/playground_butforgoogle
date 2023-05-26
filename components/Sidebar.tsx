@@ -7,8 +7,9 @@ import { signOut, useSession } from "next-auth/react";
 import { useCollection } from "react-firebase-hooks/firestore";
 // import { useSession } from 'next-auth/react';
 // const session = useSession();
-import listAssignments from "./googleapi/googleclassroom";
+import listAssignments from "../pages/api/googleclassroom";
 import ChatRow from "./ChatRow";
+import axios from 'axios';
 // import ModelSelection from "./ModelSelection";
 import NewChat from "./NewChat";
 
@@ -23,6 +24,15 @@ function Sidebar({}: Props) {
         orderBy("createdAt", "asc")
       )
   );
+
+  async function getAssignments(){
+    console.log("bitch")
+    const data = axios.get('/api/googleclassroom', {withCredentials: true, data:{
+      courseID: "2hs45ud"
+    }});
+    console.log("bitch 2")
+    return data;
+  }
 
   return (
     <div className="p-2 flex flex-col h-screen">
@@ -53,7 +63,7 @@ function Sidebar({}: Props) {
       </div>
       {session && (
         <div className="border-t border-white py-4 space-y-4">
-          <button onClick={() => listAssignments("2hs45ud", session.accessToken)}>test</button>
+          <button onClick={() => getAssignments()}>test</button>
           <div className="chatRow items-center justify-start bg-gray-700/50 gap-5">
             <img
               src={session?.user?.image!}
